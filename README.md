@@ -24,7 +24,7 @@ The collection covers:
    └─ lendsqr-report.json      # Machine-readable report (optional)
 ````
 
-> ⚠️ **Important:** Before pushing to GitHub, remove/replace any real secrets (e.g. `xx_live_...`) with placeholders and use environment variables instead. 
+> ⚠️ **Important:** Before pushing to GitHub, remove/replace any real secrets (e.g. `sk_live_...`) with placeholders and use environment variables instead. 
 
 ---
 
@@ -85,7 +85,7 @@ cd lendsqr-assessment
    | Variable        | Initial Value                             |
    | --------------- | ----------------------------------------- |
    | `base_url`      | `https://adjutor.lendsqr.com/v2/`         |
-   | `access_token`  | `xx_xxx` (or test/placeholder token) |
+   | `access_token`  | `sk_live_xxx` (or test/placeholder token) |
    | `BVN`           | Valid BVN for test (e.g. `"22293381111"`) |
    | `contactNumber` | Test phone (e.g. `"0704xxxxxxx"`)         |
 
