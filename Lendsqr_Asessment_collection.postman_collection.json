@@ -1,0 +1,1088 @@
+{
+	"info": {
+		"_postman_id": "90a78069-cdbd-4e57-acae-f572e86cd8a9",
+		"name": "Lendsqr_Asessment_collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "50004558",
+		"_collection_link": "https://oluwatobi-fagbohungbe-5238245.postman.co/workspace/Oluwatobi-Fagbohungbe's-Workspa~eb952a52-c562-4d41-8c8c-2f54b403488f/collection/50004558-90a78069-cdbd-4e57-acae-f572e86cd8a9?action=share&source=collection_link&creator=50004558"
+	},
+	"item": [
+		{
+			"name": "Bank Verification Number",
+			"item": [
+				{
+					"name": "Initialize BVN Consent",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"access_token\", \"\");",
+									"pm.collectionVariables.set(\"BVN\",\"22222222222\");",
+									"pm.collectionVariables.set(\"contactNumber\",\"07044952993\")"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"var jsonData = pm.response.json();",
+									"pm.test(\"Validating Response Message\", function () {",
+									"    pm.expect(jsonData.message).to.eql(\"Please provide OTP sent to contact\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"contact\": \"{{contactNumber}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}verification/bvn/:bvn",
+							"host": [
+								"{{base_url}}verification"
+							],
+							"path": [
+								"bvn",
+								":bvn"
+							],
+							"variable": [
+								{
+									"key": "bvn",
+									"value": "{{BVN}}"
+								}
+							]
+						},
+						"description": "This endpoint is used to initiate the process for getting the customer's consent. The integrator is required to pass the customer's BVN and the phone number. If the phone number passed does not match the customer phone on record, an error is returned but with a masked collection of the correct phone and email on the customer account.\n\n#### Request Body\n\n**contact** \\* ˢᵗʳⁱⁿᵍ  \nThe phone number or email of the customer.  \nAt minimum, the phone number must match the one linked to the BVN _(e.g., 08012345678,_ [<i>ado@example.com</i>](https://mailto:ado@example.com)_)._"
+					},
+					"response": [
+						{
+							"name": "Initialize BVN",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"contact\": \"0808***2636\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://adjutor.lendsqr.com/v2/verification/bvn/:bvn",
+									"protocol": "https",
+									"host": [
+										"adjutor",
+										"lendsqr",
+										"com"
+									],
+									"path": [
+										"v2",
+										"verification",
+										"bvn",
+										":bvn"
+									],
+									"variable": [
+										{
+											"key": "bvn",
+											"value": ""
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Wed, 21 Feb 2024 07:04:59 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "X-Request-ID",
+									"value": "91cddf27-e8c8-4475-a69f-41d3cfd2c78e"
+								},
+								{
+									"key": "Last-Modified",
+									"value": "Wed, 21 Feb 2024 07:04:38 GMT"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"75-9VH2gGmZSDLe6+ZLGrXFVt5sc5Y\""
+								},
+								{
+									"key": "CF-Cache-Status",
+									"value": "DYNAMIC"
+								},
+								{
+									"key": "Server",
+									"value": "cloudflare"
+								},
+								{
+									"key": "CF-RAY",
+									"value": "858d22e9cc0a6622-AMS"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "gzip"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"otp\",\n    \"message\": \"Please provide OTP sent to contact\",\n    \"data\": \"0808***2636\",\n    \"meta\": {\n        \"cost\": 0,\n        \"balance\": 4815\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Complete Consent and get BVN Details",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"var requestResponse = pm.response.json();",
+									"",
+									"pm.test(\"Message Validation\", function () {",
+									"    pm.expect(requestResponse.message).to.eql(\"Successful\");",
+									"});",
+									"",
+									"pm.test(\"Status Validation\", function () {",
+									"    pm.expect(requestResponse.status).to.eql(\"success\");",
+									"});",
+									"",
+									"pm.test(\"The 'reference' field is present and is a positive integer\", function () {    ",
+									"    pm.expect(requestResponse.data).to.have.property('reference').that.is.a('number').and.is.above(0);",
+									"});",
+									"",
+									"",
+									"pm.test(\"The 'bvn' field must be present and a non-empty string\", function () {",
+									"    pm.expect(requestResponse.data).to.have.property('bvn').that.is.a('string').and.is.not.empty;",
+									"});",
+									"",
+									"",
+									"pm.test(\"The first_name field is present and is a non-empty string\", function () {",
+									"    pm.expect(requestResponse.data).to.have.property('first_name').that.is.a('string').and.has.lengthOf.at.least(1, \"Value should not be empty\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"The last_name field must be present and be a non-empty string\", function () {",
+									"    pm.expect(requestResponse.data).to.have.property('last_name');",
+									"    pm.expect(requestResponse.data.last_name).to.exist.and.to.be.a('string').and.to.have.lengthOf.at.least(1, \"last_name should not be empty\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"The 'dob' field must be present and in the valid date format 'YYYY-MM-DD'\", function () {",
+									"    pm.expect(requestResponse.data).to.have.property('dob').that.is.a('string').and.satisfy(dob => {",
+									"        return /^\\d{4}-\\d{2}-\\d{2}$/.test(dob);",
+									"    }, \"Date of birth must be in the format 'YYYY-MM-DD'\");",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"otp\": \"623553\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}verification/bvn/:bvn",
+							"host": [
+								"{{base_url}}verification"
+							],
+							"path": [
+								"bvn",
+								":bvn"
+							],
+							"variable": [
+								{
+									"key": "bvn",
+									"value": "{{BVN}}"
+								}
+							]
+						},
+						"description": "This endpoint is used to get the BVN data after the customer's consent has been approved.\n\n#### Request Body\n\n**otp** \\* ˢᵗʳⁱⁿᵍ  \nA 6 digit password sent to the contact entered during consent intialization.\n\n### Response fields\n\n| Field |\n| --- |\n| **reference** ⁱⁿᵗᵉᵍᵉʳ  <br>Unique reference number (e.g., _10000001_) |\n| **bvn** ˢᵗʳⁱⁿᵍ  <br>Bank Verification Number (e.g., _22123456789_) |\n| **first_name** ˢᵗʳⁱⁿᵍ  <br>First name of the individual (e.g., _ADO_) |\n| **middle_name** ˢᵗʳⁱⁿᵍ  <br>Middle name of the individual (e.g., _JOHN_) |\n| **last_name** ˢᵗʳⁱⁿᵍ  <br>Last name of the individual (e.g., _SULE_) |\n| **dob** ᵈᵃᵗᵉ  <br>Date of birth in `YYYY-MM-DD` format (e.g., _1990-10-31_) |\n| **formatted_dob** ᵈᵃᵗᵉ  <br>Formatted date of birth (e.g., _1990-10-31_) |\n| **mobile2** ˢᵗʳⁱⁿᵍ  <br>Secondary mobile number, if applicable (e.g., _08012345678_) |\n| **mobile** ˢᵗʳⁱⁿᵍ  <br>Primary mobile number (e.g., _08012345678_) |\n| **registration_date** ˢᵗʳⁱⁿᵍ  <br>Date of registration (e.g., _30-Mar-2015_) |\n| **enrollment_bank** ˢᵗʳⁱⁿᵍ  <br>Bank enrollment number (e.g., _044_) |\n| **enrollment_branch** ˢᵗʳⁱⁿᵍ  <br>Branch of enrollment (e.g., _RET SHOP - BABCOCK UNIVERSITY (137)_) |\n| **email** ˢᵗʳⁱⁿᵍ  <br>Email address (e.g., [<i>wunmi@yahoo.com</i>](https://mailto:wunmi@yahoo.com)) |\n| **gender** ˢᵗʳⁱⁿᵍ  <br>Gender (e.g., _Male_) |\n| **level_of_account** ˢᵗʳⁱⁿᵍ  <br>Level of account, if applicable (e.g., _Tier 2_) |\n| **lga_of_origin** ˢᵗʳⁱⁿᵍ  <br>Local Government Area of origin (e.g., _Abeokuta South_) |\n| **lga_of_residence** ˢᵗʳⁱⁿᵍ  <br>Local Government Area of residence (e.g., _Abeokuta South_) |\n| **marital_status** ˢᵗʳⁱⁿᵍ  <br>Marital status (e.g., _Single_) |\n| **nin** ˢᵗʳⁱⁿᵍ  <br>National Identification Number, if applicable (e.g., _1234567890_) |\n| **name_on_card** ˢᵗʳⁱⁿᵍ  <br>Name as it appears on the card (e.g., _ADO JOHN SULE_) |\n| **nationality** ˢᵗʳⁱⁿᵍ  <br>Nationality, if applicable (e.g., _American_) |\n| **residential_address** ˢᵗʳⁱⁿᵍ  <br>Residential address (e.g., _Ogun State_) |\n| **state_of_origin** ˢᵗʳⁱⁿᵍ  <br>State of origin (e.g., _Ogun State_) |\n| **state_of_residence** ˢᵗʳⁱⁿᵍ  <br>State of residence (e.g., _Ogun State_) |\n| **watchlisted** ⁱⁿᵗᵉᵍᵉʳ  <br>Watchlist status (_0_ for not watchlisted) |\n| **image_url** ˢᵗʳⁱⁿᵍ  <br>URL of the photo (e.g., [<i>https://picsum.photos/id/1/5000/3333</i>](https://picsum.photos/id/1/5000/3333)) |"
+					},
+					"response": [
+						{
+							"name": "Complete BVN Verification",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"otp\": \"242366\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://adjutor.lendsqr.com/v2/verification/bvn/:bvn",
+									"protocol": "https",
+									"host": [
+										"adjutor",
+										"lendsqr",
+										"com"
+									],
+									"path": [
+										"v2",
+										"verification",
+										"bvn",
+										":bvn"
+									],
+									"variable": [
+										{
+											"key": "bvn",
+											"value": ""
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Wed, 21 Feb 2024 07:05:26 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "X-Request-ID",
+									"value": "e522b3f8-6d99-4a10-88e1-e4b962c1f854"
+								},
+								{
+									"key": "Last-Modified",
+									"value": "Wed, 21 Feb 2024 07:05:14 GMT"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"3de-C/X9feDDVRhWa/gVl6sTmdaWpko\""
+								},
+								{
+									"key": "CF-Cache-Status",
+									"value": "DYNAMIC"
+								},
+								{
+									"key": "Server",
+									"value": "cloudflare"
+								},
+								{
+									"key": "CF-RAY",
+									"value": "858d23c7ba346622-AMS"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "gzip"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"success\",\n    \"message\": \"Successful\",\n    \"data\": {\n        \"reference\": 10000001,\n        \"bvn\": \"22123456789\",\n        \"first_name\": \"ADO\",\n        \"middle_name\": \"JOHN\",\n        \"last_name\": \"SULE\",\n        \"dob\": \"1990-10-31\",\n        \"formatted_dob\": \"1990-10-31\",\n        \"mobile2\": null,\n        \"mobile\": \"08012345678\",\n        \"registration_date\": \"30-Mar-2015\",\n        \"enrollment_bank\": \"044\",\n        \"enrollment_branch\": \"RET SHOP - BABCOCK UNIVERSITY (137)\",\n        \"email\": \"wunmi@yahoo.com\",\n        \"gender\": \"Male\",\n        \"level_of_account\": null,\n        \"lga_of_origin\": \"Abeokuta South\",\n        \"lga_of_residence\": \"Abeokuta South\",\n        \"marital_status\": \"Single\",\n        \"nin\": null,\n        \"name_on_card\": \"ADO JOHN SULE\",\n        \"nationality\": null,\n        \"residential_address\": \"Ogun State\",\n        \"state_of_origin\": \"Ogun State\",\n        \"state_of_residence\": \"Ogun State\",\n        \"watchlisted\": 0,\n        \"base64Image\": null,\n        \"image_url\": \"https://picsum.photos/id/1/5000/3333\"\n    },\n    \"meta\": {\n        \"cost\": 20,\n        \"balance\": 4815\n    }\n}"
+						}
+					]
+				}
+			],
+			"description": "Bank Verification Number (BVN) is the national ID system created by Nigerian banks to uniquely identified bank customers in the Nigerian banking ecosystem.\n\nThe banking ecosystem has also created a mechanism where all the bank accounts tied to a specific BVN could be gotten."
+		},
+		{
+			"name": "Credit Bureaus 🇳🇬",
+			"item": [
+				{
+					"name": "Get Credit Report from CRC Credit Bureau",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"var requestResponse = pm.response.json();",
+									"",
+									"pm.test(\"Message Validation\", function () {",
+									"    pm.expect(requestResponse.message).to.eql(\"Successful\");",
+									"});",
+									"",
+									"pm.test(\"Status Validation\", function () {",
+									"    pm.expect(requestResponse.status).to.eql(\"success\");",
+									"});",
+									"",
+									"// Test for the existence of expected keys in the consumer_details object",
+									"pm.test(\"Consumer details object has all expected keys\", function () {",
+									"    var consumerDetails = requestResponse.data.nano_consumer_profile.consumer_details;",
+									"    pm.expect(consumerDetails).to.have.all.keys('name', 'ruid', 'gender', 'last_name', 'first_name', 'citizenship', 'date_of_birth', 'identification');",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{base_url}}creditbureaus/crc/:bvn",
+							"host": [
+								"{{base_url}}creditbureaus"
+							],
+							"path": [
+								"crc",
+								":bvn"
+							],
+							"variable": [
+								{
+									"key": "bvn",
+									"value": "{{BVN}}",
+									"description": "This must be a valid Bank Verification Number"
+								}
+							]
+						},
+						"description": "This request is used to check the CRC database for the credit history of a customer using their BVN.\n\n#### Path Variables\n\n**bvn** \\*  \nBVN of the customer whoses credit history you aim to fetch"
+					},
+					"response": [
+						{
+							"name": "Get Credit Report from CRC Credit Bureau",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}creditbureaus/crc/:bvn",
+									"host": [
+										"{{base_url}}creditbureaus"
+									],
+									"path": [
+										"crc",
+										":bvn"
+									],
+									"variable": [
+										{
+											"key": "bvn",
+											"value": "22293381111"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Tue, 08 Aug 2023 14:45:13 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "X-Request-ID",
+									"value": "b0a64f17-3b9c-486a-bcd9-238c74c8dc6b"
+								},
+								{
+									"key": "Last-Modified",
+									"value": "Tue, 08 Aug 2023 14:45:11 GMT"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"3a9-O71eH/thvISxq/G7zT9AeNi1Bl4\""
+								},
+								{
+									"key": "CF-Cache-Status",
+									"value": "DYNAMIC"
+								},
+								{
+									"key": "Server",
+									"value": "cloudflare"
+								},
+								{
+									"key": "CF-RAY",
+									"value": "7f388aa9590fc4fc-LOS"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "gzip"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"success\",\n    \"message\": \"Successful\",\n    \"data\": {\n        \"consdisclaimer\": {\n            \"getdisclaimercontent\": {\n                \"_x0031_\": \"1\"\n            }\n        },\n        \"consumer_relation\": \"\",\n        \"last_checked_date\": \"2023-06-29 12:00:40\",\n        \"credit_nano_summary\": {\n            \"summary\": {\n                \"last_reported_date\": \"31-MAY-2023\",\n                \"has_creditfacilities\": \"YES\",\n                \"no_of_delinqcreditfacilities\": \"2\"\n            }\n        },\n        \"mfcredit_nano_summary\": {\n            \"summary\": {\n                \"last_reported_date\": \"31-MAY-2023\",\n                \"has_creditfacilities\": \"YES\",\n                \"no_of_delinqcreditfacilities\": \"1\"\n            }\n        },\n        \"mgcredit_nano_summary\": {\n            \"summary\": {\n                \"has_creditfacilities\": \"NO\",\n                \"no_of_delinqcreditfacilities\": \"0\"\n            }\n        },\n        \"nano_consumer_profile\": {\n            \"consumer_details\": {\n                \"name\": \"JOHN DOE\",\n                \"ruid\": \"1112020002201111\",\n                \"gender\": \"001\",\n                \"last_name\": \"DOE\",\n                \"first_name\": \"JOHN\",\n                \"citizenship\": \"NG\",\n                \"date_of_birth\": \"01-OCT-1960\",\n                \"identification\": {\n                    \"ruid\": \"1112020002201111\",\n                    \"id_value\": \"22293381111\",\n                    \"source_id\": \"BVN\",\n                    \"id_display_name\": \"Business Verification Number\"\n                }\n            }\n        }\n    },\n    \"meta\": {\n        \"cost\": 100,\n        \"balance\": 1355\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Credit Report from FirstCentral Credit Bureau",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"var jsonData = pm.response.json();",
+									"",
+									"",
+									"pm.test(\"Response Status Validation\", function () {",
+									"    pm.expect(jsonData.message).to.eql(\"This is a test mode response. Your app is in test mode. Complete your KYC to access live data.\");",
+									"});",
+									"",
+									"pm.test(\"Response Status Validation\", function () {",
+									"    pm.expect(jsonData.status).to.eql(\"success\");",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 500ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}creditbureaus/firstcentral/:bvn",
+							"host": [
+								"{{base_url}}creditbureaus"
+							],
+							"path": [
+								"firstcentral",
+								":bvn"
+							],
+							"variable": [
+								{
+									"key": "bvn",
+									"value": "{{BVN}}",
+									"description": "This must be a valid Bank Verification Number"
+								}
+							]
+						},
+						"description": "This request is used to check the CRC database for the credit history of a customer using their BVN.\n\n#### Path Variables\n\n**bvn** \\*  \nBVN of the customer whoses credit history you aim to fetch"
+					},
+					"response": [
+						{
+							"name": "Get Credit Report from FirstCentral Credit Bureau",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}creditbureaus/firstcentral/:bvn",
+									"host": [
+										"{{base_url}}creditbureaus"
+									],
+									"path": [
+										"firstcentral",
+										":bvn"
+									],
+									"variable": [
+										{
+											"key": "bvn",
+											"value": "22293381111"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Mon, 14 Aug 2023 13:26:10 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "X-Request-ID",
+									"value": "215fcd37-0d7f-4fc8-9031-7fa20e55bad0"
+								},
+								{
+									"key": "Last-Modified",
+									"value": "Mon, 14 Aug 2023 13:26:10 GMT"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"5da-eIapFMBHh+VQsgkRqx4HYnwZad4\""
+								},
+								{
+									"key": "CF-Cache-Status",
+									"value": "DYNAMIC"
+								},
+								{
+									"key": "Server",
+									"value": "cloudflare"
+								},
+								{
+									"key": "CF-RAY",
+									"value": "7f698727981103d6-LIS"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "gzip"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"success\",\n    \"message\": \"Successful\",\n    \"data\": [\n        {\n            \"SubjectList\": [\n                {\n                    \"Reference\": \"2663443\",\n                    \"ConsumerID\": \"2663443\",\n                    \"SearchOutput\": \"DOE JANE, dantata estate kubwa abuja\"\n                }\n            ]\n        },\n        {\n            \"PersonalDetailsSummary\": [\n                {\n                    \"Gender\": \"Female\",\n                    \"Header\": \"PERSONAL DETAILS SUMMARY: DOE JANE\",\n                    \"Surname\": \"DOE\",\n                    \"BirthDate\": \"19/03/1997\",\n                    \"FirstName\": \"JANE\",\n                    \"OtheridNo\": \"\",\n                    \"CellularNo\": \"2348169591111\",\n                    \"ConsumerID\": \"2663443\",\n                    \"Dependants\": \"0\",\n                    \"OtherNames\": \"\",\n                    \"PassportNo\": null,\n                    \"PencomIDNo\": \"\",\n                    \"Nationality\": \"Nigeria\",\n                    \"ReferenceNo\": null,\n                    \"EmailAddress\": \"\",\n                    \"NationalIDNo\": \"\",\n                    \"MaritalStatus\": null,\n                    \"EmployerDetail\": null,\n                    \"PostalAddress1\": \"DANTATA ESTATE ABUJA FEDERAL CAPITAL TERRITORY\",\n                    \"PostalAddress2\": \"15\",\n                    \"PostalAddress3\": \"\",\n                    \"PostalAddress4\": \" Nigeria\",\n                    \"HomeTelephoneNo\": \"2348169591111\",\n                    \"WorkTelephoneNo\": \"2348169591111\",\n                    \"DriversLicenseNo\": null,\n                    \"PropertyOwnedType\": \"\",\n                    \"BankVerificationNo\": \"22293381111\",\n                    \"ResidentialAddress1\": \"10nasiru dantata estate kubwa abuja\",\n                    \"ResidentialAddress2\": \"\",\n                    \"ResidentialAddress3\": \"\",\n                    \"ResidentialAddress4\": \" \"\n                }\n            ]\n        },\n        {\n            \"CreditSummary\": [\n                {\n                    \"NumberofAccountsInBadStanding\": \"0\",\n                    \"TotalNumberOfAccountsReported\": \"6\",\n                    \"NumberOfAccountsInGoodStanding\": \"6\"\n                }\n            ]\n        },\n        {\n            \"PerformanceClassification\": [\n                {\n                    \"NoOfLoansLost\": \"0\",\n                    \"NoOfLoansDoubtful\": \"0\",\n                    \"NoOfLoansPerforming\": \"6\",\n                    \"NoOfLoansSubstandard\": \"1\"\n                }\n            ]\n        },\n        {\n            \"EnquiryDetails\": [\n                {\n                    \"ProductID\": \"63\",\n                    \"MatchingRate\": \"90\",\n                    \"SubscriberEnquiryEngineID\": \"179484634\",\n                    \"SubscriberEnquiryResultID\": \"22059650\"\n                }\n            ]\n        }\n    ],\n    \"meta\": {\n        \"cost\": 100,\n        \"balance\": 1025\n    }\n}"
+						}
+					]
+				}
+			],
+			"description": "The Credit Bureaus folder contains resources and tools for accessing credit information through credit bureau integrations."
+		},
+		{
+			"name": "Banks",
+			"item": [
+				{
+					"name": "Get All Banks",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"var jsonData = pm.response.json();",
+									"",
+									"",
+									"pm.test(\"Response Status Validation\", function () {",
+									"    pm.expect(jsonData.message).to.eql(\"This is a test mode response. Your app is in test mode. Complete your KYC to access live data.\");",
+									"});",
+									"",
+									"pm.test(\"Response Status Validation\", function () {",
+									"    pm.expect(jsonData.status).to.eql(\"success\");",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 500ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}direct-debit/banks?limit=100&page=1",
+							"host": [
+								"{{base_url}}direct-debit"
+							],
+							"path": [
+								"banks"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "100"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "sort_dir",
+									"value": "ASC",
+									"disabled": true
+								}
+							]
+						},
+						"description": "This endpoints returns the lis of banks able to provide direct debit authorizations on their customers' accounts.\n\n#### Response Body Fields\n\n| Field |\n| --- |\n| id ⁱⁿᵗᵉᵍᵉʳ  <br>Unique identifier for the bank. |\n| name ˢᵗʳⁱⁿᵍ  <br>Name of the bank. |\n| bank_code ˢᵗʳⁱⁿᵍ  <br>This is the CBN code associated with the bank. It is usually 3 digits for commercial banks and 5 digits for microfinance banks. |\n| institution_code ˢᵗʳⁱⁿᵍ  <br>This is the NIBSS code associated with the bank. It is usually 6 digits long. For commercial banks, the code is in the format 0000XX where X is from 0 to 99. |\n| url ˢᵗʳⁱⁿᵍ  <br>URL pointing to the bank's logo or image. |"
+					},
+					"response": [
+						{
+							"name": "Get All Banks",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}direct-debit/banks?limit=100&page=1&sort_dir=ASC",
+									"host": [
+										"{{base_url}}direct-debit"
+									],
+									"path": [
+										"banks"
+									],
+									"query": [
+										{
+											"key": "limit",
+											"value": "100"
+										},
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "sort_dir",
+											"value": "ASC"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "X-Request-ID",
+									"value": "713b4442-1cf6-46bb-8a39-85de0ad54d89"
+								},
+								{
+									"key": "Last-Modified",
+									"value": "Wed, 27 Mar 2024 16:28:29 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "6395"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"18fb-Pj1/ZMbxWk/ZZFF1vrvEYAOh3tM\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 27 Mar 2024 16:28:31 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"success\",\n    \"message\": \"success\",\n    \"data\": {\n        \"data\": [\n            {\n                \"id\": 1,\n                \"name\": \"Access Bank\",\n                \"bank_code\": \"044\",\n                \"institution_code\": \"000014\",\n                \"url\": \"https://lendstack-s3.s3.us-east-2.amazonaws.com/bank_logos/044.png\",\n                \"activation_amount\": \"50.00\",\n                \"meta\": \"{\\\"mandate-activation-amount\\\":50,\\\"mandate-activation-bank\\\":\\\"Paystack-Titan\\\",\\\"mandate-activation-account-number\\\":\\\"9880218357\\\"}\"\n            },\n            {\n                \"id\": 7,\n                \"name\": \"Ecobank Nigeria\",\n                \"bank_code\": \"050\",\n                \"institution_code\": \"000010\",\n                \"url\": \"https://lendstack-s3.s3.us-east-2.amazonaws.com/bank_logos/050.png\",\n                \"activation_amount\": \"50.00\",\n                \"meta\": \"{\\\"mandate-activation-amount\\\":50,\\\"mandate-activation-bank\\\":\\\"Paystack-Titan\\\",\\\"mandate-activation-account-number\\\":\\\"9880218357\\\"}\"\n            },\n            {\n                \"id\": 11,\n                \"name\": \"Fidelity Bank\",\n                \"bank_code\": \"070\",\n                \"institution_code\": \"000007\",\n                \"url\": \"https://lendstack-s3.s3.us-east-2.amazonaws.com/bank_logos/070.png\",\n                \"activation_amount\": \"50.00\",\n                \"meta\": \"{\\\"mandate-activation-amount\\\":50,\\\"mandate-activation-bank\\\":\\\"Paystack-Titan\\\",\\\"mandate-activation-account-number\\\":\\\"9880218357\\\"}\"\n            },\n            {\n                \"id\": 10,\n                \"name\": \"First Bank of Nigeria\",\n                \"bank_code\": \"011\",\n                \"institution_code\": \"000016\",\n                \"url\": \"https://lendstack-s3.s3.us-east-2.amazonaws.com/bank_logos/011.png\",\n                \"activation_amount\": \"50.00\",\n                \"meta\": \"{\\\"mandate-activation-amount\\\":50,\\\"mandate-activation-bank\\\":\\\"Paystack-Titan\\\",\\\"mandate-activation-account-number\\\":\\\"9880218357\\\"}\"\n            },\n            {\n                \"id\": 12,\n                \"name\": \"First City Monument Bank\",\n                \"bank_code\": \"214\",\n                \"institution_code\": \"000003\",\n                \"url\": \"https://lendstack-s3.s3.us-east-2.amazonaws.com/bank_logos/214.png\",\n                \"activation_amount\": \"50.00\",\n                \"meta\": \"{\\\"mandate-activation-amount\\\":50,\\\"mandate-activation-bank\\\":\\\"Paystack-Titan\\\",\\\"mandate-activation-account-number\\\":\\\"9880218357\\\"}\"\n            },\n            {\n                \"id\": 16,\n                \"name\": \"Guaranty Trust Bank\",\n                \"bank_code\": \"058\",\n                \"institution_code\": \"000013\",\n                \"url\": \"https://lendstack-s3.s3.us-east-2.amazonaws.com/bank_logos/058.png\",\n                \"activation_amount\": \"50.00\",\n                \"meta\": \"{\\\"mandate-activation-amount\\\":50,\\\"mandate-activation-bank\\\":\\\"Paystack-Titan\\\",\\\"mandate-activation-account-number\\\":\\\"9880218357\\\"}\"\n            },\n            {\n                \"id\": 18,\n                \"name\": \"Keystone Bank\",\n                \"bank_code\": \"082\",\n                \"institution_code\": \"000002\",\n                \"url\": \"https://lendstack-s3.s3.us-east-2.amazonaws.com/bank_logos/082.png\",\n                \"activation_amount\": \"50.00\",\n                \"meta\": \"{\\\"mandate-activation-amount\\\":50,\\\"mandate-activation-bank\\\":\\\"Paystack-Titan\\\",\\\"mandate-activation-account-number\\\":\\\"9880218357\\\"}\"\n            },\n            {\n                \"id\": 22,\n                \"name\": \"Kuda Bank\",\n                \"bank_code\": \"50211\",\n                \"institution_code\": \"090267\",\n                \"url\": \"https://lendstack-s3.s3.us-east-2.amazonaws.com/bank_logos/50211.png\",\n                \"activation_amount\": \"50.00\",\n                \"meta\": \"{\\\"mandate-activation-amount\\\":50,\\\"mandate-activation-bank\\\":\\\"Paystack-Titan\\\",\\\"mandate-activation-account-number\\\":\\\"9880218357\\\"}\"\n            },\n            {\n                \"id\": 25,\n                \"name\": \"Polaris Bank\",\n                \"bank_code\": \"076\",\n                \"institution_code\": \"000008\",\n                \"url\": \"https://lendstack-s3.s3.us-east-2.amazonaws.com/bank_logos/076.png\",\n                \"activation_amount\": \"50.00\",\n                \"meta\": \"{\\\"mandate-activation-amount\\\":50,\\\"mandate-activation-bank\\\":\\\"Paystack-Titan\\\",\\\"mandate-activation-account-number\\\":\\\"9880218357\\\"}\"\n            },\n            {\n                \"id\": 24,\n                \"name\": \"Providus Bank\",\n                \"bank_code\": \"101\",\n                \"institution_code\": \"000023\",\n                \"url\": \"https://lendstack-s3.s3.us-east-2.amazonaws.com/bank_logos/101.png\",\n                \"activation_amount\": \"50.00\",\n                \"meta\": \"{\\\"mandate-activation-amount\\\":50,\\\"mandate-activation-bank\\\":\\\"Paystack-Titan\\\",\\\"mandate-activation-account-number\\\":\\\"9880218357\\\"}\"\n            },\n            {\n                \"id\": 27,\n                \"name\": \"Stanbic IBTC Bank\",\n                \"bank_code\": \"221\",\n                \"institution_code\": \"000012\",\n                \"url\": \"https://lendstack-s3.s3.us-east-2.amazonaws.com/bank_logos/221.png\",\n                \"activation_amount\": \"50.00\",\n                \"meta\": \"{\\\"mandate-activation-amount\\\":50,\\\"mandate-activation-bank\\\":\\\"Paystack-Titan\\\",\\\"mandate-activation-account-number\\\":\\\"9880218357\\\"}\"\n            },\n            {\n                \"id\": 28,\n                \"name\": \"Standard Chartered Bank\",\n                \"bank_code\": \"068\",\n                \"institution_code\": \"000021\",\n                \"url\": \"https://lendstack-s3.s3.us-east-2.amazonaws.com/bank_logos/068.png\",\n                \"activation_amount\": \"100.00\",\n                \"meta\": \"{\\\"mandate-activation-amount\\\":100,\\\"mandate-activation-bank\\\":\\\"Paystack-Titan\\\",\\\"mandate-activation-account-number\\\":\\\"9880218357\\\"}\"\n            },\n            {\n                \"id\": 29,\n                \"name\": \"Sterling Bank\",\n                \"bank_code\": \"232\",\n                \"institution_code\": \"000001\",\n                \"url\": \"https://lendstack-s3.s3.us-east-2.amazonaws.com/bank_logos/232.png\",\n                \"activation_amount\": \"50.00\",\n                \"meta\": \"{\\\"mandate-activation-amount\\\":50,\\\"mandate-activation-bank\\\":\\\"Paystack-Titan\\\",\\\"mandate-activation-account-number\\\":\\\"9880218357\\\"}\"\n            },\n            {\n                \"id\": 34,\n                \"name\": \"Suntrust Bank\",\n                \"bank_code\": \"100\",\n                \"institution_code\": \"000022\",\n                \"url\": \"https://lendstack-s3.s3.us-east-2.amazonaws.com/bank_logos/100.png\",\n                \"activation_amount\": \"50.00\",\n                \"meta\": \"{\\\"mandate-activation-amount\\\":50,\\\"mandate-activation-bank\\\":\\\"Paystack-Titan\\\",\\\"mandate-activation-account-number\\\":\\\"9880218357\\\"}\"\n            },\n            {\n                \"id\": 36,\n                \"name\": \"Union Bank of Nigeria\",\n                \"bank_code\": \"032\",\n                \"institution_code\": \"000018\",\n                \"url\": \"https://lendstack-s3.s3.us-east-2.amazonaws.com/bank_logos/032.png\",\n                \"activation_amount\": \"100.00\",\n                \"meta\": \"{\\\"mandate-activation-amount\\\":100,\\\"mandate-activation-bank\\\":\\\"Paystack-Titan\\\",\\\"mandate-activation-account-number\\\":\\\"9880218357\\\"}\"\n            },\n            {\n                \"id\": 40,\n                \"name\": \"United Bank For Africa\",\n                \"bank_code\": \"033\",\n                \"institution_code\": \"000004\",\n                \"url\": \"https://lendstack-s3.s3.us-east-2.amazonaws.com/bank_logos/033.png\",\n                \"activation_amount\": \"50.00\",\n                \"meta\": \"{\\\"mandate-activation-amount\\\":50,\\\"mandate-activation-bank\\\":\\\"Paystack-Titan\\\",\\\"mandate-activation-account-number\\\":\\\"9880218357\\\"}\"\n            },\n            {\n                \"id\": 37,\n                \"name\": \"Unity Bank\",\n                \"bank_code\": \"215\",\n                \"institution_code\": \"000011\",\n                \"url\": \"https://lendstack-s3.s3.us-east-2.amazonaws.com/bank_logos/215.png\",\n                \"activation_amount\": \"100.00\",\n                \"meta\": \"{\\\"mandate-activation-amount\\\":100,\\\"mandate-activation-bank\\\":\\\"Paystack-Titan\\\",\\\"mandate-activation-account-number\\\":\\\"9880218357\\\"}\"\n            },\n            {\n                \"id\": 2,\n                \"name\": \"Wema Bank\",\n                \"bank_code\": \"035\",\n                \"institution_code\": \"000017\",\n                \"url\": \"https://lendstack-s3.s3.us-east-2.amazonaws.com/bank_logos/035.png\",\n                \"activation_amount\": \"50.00\",\n                \"meta\": \"{\\\"mandate-activation-amount\\\":50,\\\"mandate-activation-bank\\\":\\\"Paystack-Titan\\\",\\\"mandate-activation-account-number\\\":\\\"9880218357\\\"}\"\n            },\n            {\n                \"id\": 41,\n                \"name\": \"Zenith Bank\",\n                \"bank_code\": \"057\",\n                \"institution_code\": \"000015\",\n                \"url\": \"https://lendstack-s3.s3.us-east-2.amazonaws.com/bank_logos/057.png\",\n                \"activation_amount\": \"50.00\",\n                \"meta\": \"{\\\"mandate-activation-amount\\\":50,\\\"mandate-activation-bank\\\":\\\"Paystack-Titan\\\",\\\"mandate-activation-account-number\\\":\\\"9880218357\\\"}\"\n            }\n        ],\n        \"meta\": {\n            \"records\": 19,\n            \"page\": \"1\",\n            \"pages\": 1,\n            \"page_size\": \"100\"\n        }\n    },\n    \"meta\": {\n        \"cost\": 1,\n        \"balance\": 1010\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Details of a Bank",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"var jsonData = pm.response.json();",
+									"",
+									"",
+									"pm.test(\"Response Status Validation\", function () {",
+									"    pm.expect(jsonData.message).to.eql(\"This is a test mode response. Your app is in test mode. Complete your KYC to access live data.\");",
+									"});",
+									"",
+									"pm.test(\"Response Status Validation\", function () {",
+									"    pm.expect(jsonData.status).to.eql(\"success\");",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 500ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}direct-debit/banks/:bank_id",
+							"host": [
+								"{{base_url}}direct-debit"
+							],
+							"path": [
+								"banks",
+								":bank_id"
+							],
+							"variable": [
+								{
+									"key": "bank_id",
+									"value": "0086"
+								}
+							]
+						},
+						"description": "Retrieve the details of a specific account.\n\n#### Query Params\n\nbank_id* ⁱⁿᵗᵉᵍᵉʳ \nThe ID of the bank you want to get the details of.\n\n#### Response Body Field\n\n| Field |\n| --- | \n| status ˢᵗʳⁱⁿᵍ <br>The status of the response. |\n| message ˢᵗʳⁱⁿᵍ <br>A message indicating the result of the operation. |\n| data ᵒᵇʲᵉᶜᵗ <br>The data object contains specific information related to the response. |\n| id ⁿᵘᵐᵇᵉʳ <br>The ID associated with the bank. |\n| bank ˢᵗʳⁱⁿᵍ <br>The name of the bank. |\n| bank_code ˢᵗʳⁱⁿᵍ <br>The bank code associated with the bank. |\n| institutional_code ˢᵗʳⁱⁿᵍ <br>The institution code associated with the bank. |\n| url ˢᵗʳⁱⁿᵍ <br>The URL pointing to the bank's logo image. |"
+					},
+					"response": [
+						{
+							"name": "Get Details of a Bank",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}direct-debit/banks/:bank_id",
+									"host": [
+										"{{base_url}}direct-debit"
+									],
+									"path": [
+										"banks",
+										":bank_id"
+									],
+									"variable": [
+										{
+											"key": "bank_id",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "X-Request-ID",
+									"value": "c711d34d-4378-472a-a43c-5a603a435c21"
+								},
+								{
+									"key": "Last-Modified",
+									"value": "Wed, 27 Mar 2024 16:48:19 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "403"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"193-NjjN04voJ7aLorbmK2F0o9mtDHg\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 27 Mar 2024 16:48:22 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"success\",\n    \"message\": \"success\",\n    \"data\": {\n        \"id\": 1,\n        \"name\": \"Access Bank\",\n        \"bank_code\": \"044\",\n        \"institution_code\": \"000014\",\n        \"url\": \"https://lendstack-s3.s3.us-east-2.amazonaws.com/bank_logos/044.png\",\n        \"activation_amount\": \"50.00\",\n        \"meta\": \"{\\\"mandate-activation-amount\\\":50,\\\"mandate-activation-bank\\\":\\\"Paystack-Titan\\\",\\\"mandate-activation-account-number\\\":\\\"9880218357\\\"}\"\n    },\n    \"meta\": {\n        \"cost\": 1,\n        \"balance\": 1010\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Verify Bank Account Number",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"account_number\": \"220000000099\",\n    \"bank_code\": \"057\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}direct-debit/banks/account-lookup",
+							"host": [
+								"{{base_url}}direct-debit"
+							],
+							"path": [
+								"banks",
+								"account-lookup"
+							]
+						},
+						"description": "This endpoint is used to verify the validity and details of a Nigerian account number.\n\n#### Request Body\n\naccount_number\\* ˢᵗʳⁱⁿᵍ  \nA valid NUBAN account number, which must be 10 digits.\n\nbank_id\\* ⁱⁿᵗᵉᵍᵉʳ  \nThe identifier of the bank to which the account belongs.\n\n#### Response Body\n\n| Field |\n| --- |\n| account_name ˢᵗʳⁱⁿᵍ  <br>Name of the account holder associated with the account number. |\n| bvn ˢᵗʳⁱⁿᵍ  <br>Masked Bank Verification Number (BVN) associated with the account holder (e.g., \"22000000022\" if original is \"22222222222\"). |\n| session_id ˢᵗʳⁱⁿᵍ  <br>Session ID or identifier associated with the account lookup operation. |"
+					},
+					"response": [
+						{
+							"name": "Verify Bank Account Number",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"account_number\": \"2150302690\",\n    \"bank_code\": \"057\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}direct-debit/banks/account-lookup",
+									"host": [
+										"{{base_url}}direct-debit"
+									],
+									"path": [
+										"banks",
+										"account-lookup"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "X-Request-ID",
+									"value": "ea9bc497-d658-4848-9906-d4d2c5274bcf"
+								},
+								{
+									"key": "Last-Modified",
+									"value": "Wed, 27 Mar 2024 16:50:07 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "186"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"ba-/00MCsOg6ox3KzdLPt8n1Zi280k\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 27 Mar 2024 16:50:11 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"success\",\n    \"message\": \"success\",\n    \"data\": {\n        \"account_name\": \"vee Test\",\n        \"bvn\": \"220000000099\",\n        \"session_id\": \"999999230427160615129743771734\"\n    },\n    \"meta\": {\n        \"cost\": 1,\n        \"balance\": 1010\n    }\n}"
+						}
+					]
+				}
+			],
+			"description": "These endpoints are used to get the list of Nigerian banks, details of specific banks. They can also be used to bank account verification.\n\n#### Note\n\nNot all banks are included as some banks have either not implemented their direct debit service, or they return DO NOT HONOR on direct debit requests.\n\nIf a bank is missing, please email [support@lendsqr.com](https://mailto:support@lendsqr.com) for assistance or more details."
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{access_token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					"pm.collectionVariables.set(\"base_url\", \"https://adjutor.lendsqr.com/v2/\")"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": ""
+		},
+		{
+			"key": "access_token",
+			"value": ""
+		},
+		{
+			"key": "BVN",
+			"value": ""
+		},
+		{
+			"key": "contactNumber",
+			"value": ""
+		}
+	]
+}
