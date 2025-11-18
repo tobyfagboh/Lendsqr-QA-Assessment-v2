@@ -91,6 +91,13 @@ cd lendsqr-assessment
 
 > Note: In the uploaded collection, a pre-request script already sets `base_url`, `access_token`, `BVN`, and `contactNumber`. For security, replace that logic with environment variables before publishing. 
 
+### 4.3. How to get your api keys 
+1. Visitt https://app.adjutor.io/login
+2. Create an account and complete verification 
+3. Navigate to app and create a new app (Give it access to every service)
+4. Copy the access token/api key 
+5. On postman, go to collection variable and paste inside the value field for the access token 
+
 ---
 
 ## 5. How to Run the Test Scripts
